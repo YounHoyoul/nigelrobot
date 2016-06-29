@@ -16,6 +16,25 @@ class RobotSimulator
     }
 
     public function simulate(){
+        $this->initInput();
+
+        while(!$this->checkAllRobotsDone()){
+            foreach($this->robots as $robot){
+                try{
+                    $robot->nextCommand();
+                    if($this->hasRobotCollision($robot)){
+                        return [self::ERR_COLLISION];
+                    }
+                }catch(RobotCannotMoveException $e){
+                    return [self::ERR_CANNOTMOVE];
+                }
+            }
+        }
+
+        return $this->makeResult();
+    }
+
+    private function initInput(){
         $lines = explode(PHP_EOL,$this->input); 
 
         $mat = explode(' ',$lines[0]);
@@ -26,33 +45,30 @@ class RobotSimulator
             $this->robots[] = new Robot($pos[0],$pos[1],$pos[2],$command,$mat);
             $i++;
         }
+    }
 
-        $allDone = false;
-        while(!$allDone){
-            foreach($this->robots as $r1){
-                try{
-                    $r1->nextCommand();
-                    foreach($this->robots as $r2){
-                        if($r1 !== $r2){
-                            if($r2->checkCollision($r1->x,$r2->y)){
-                                return [self::ERR_COLLISION];
-                            }
-                        }
-                    }
-                }catch(RobotCannotMoveException $e){
-                    return [self::ERR_CANNOTMOVE];
-                }
-            }
-
-            $allDone = true;
-            foreach($this->robots as $robot){
-                if(!$robot->isDone()){
-                    $allDone = false; 
-                    break; 
+    private function hasRobotCollision($robot){
+        foreach($this->robots as $r2){
+            if($robot !== $r2){
+                if($r2->checkCollision($robot->x,$robot->y)){
+                    return true;
                 }
             }
         }
 
+        return false;
+    }
+
+    private function checkAllRobotsDone(){
+        foreach($this->robots as $robot){
+            if(!$robot->isDone()){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private function makeResult(){
         $result = array();
         foreach($this->robots as $r){
             $result[] = $r->x.' '.$r->y.' '.$r->direction; 
