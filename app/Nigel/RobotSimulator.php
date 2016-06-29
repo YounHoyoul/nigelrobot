@@ -1,6 +1,8 @@
 <?php
 namespace App\Nigel;
 
+use app\Exceptions\RobotCannotMoveException;
+
 class RobotSimulator
 {
     const ERR_COLLISION = "Robot Collision Detected";
@@ -37,7 +39,7 @@ class RobotSimulator
                             }
                         }
                     }
-                }catch(\Exception $e){
+                }catch(RobotCannotMoveException $e){
                     return [self::ERR_CANNOTMOVE];
                 }
             }

@@ -1,6 +1,8 @@
 <?php
 namespace App\Nigel;
 
+use App\Exceptions\RobotCannotMoveException;
+
 class Robot{
 
     const DIRECTIONS = ['N','E','S','W'];
@@ -82,25 +84,25 @@ class Robot{
         switch($this->direction){
         case 'N':
             if($this->y == 0){
-               throw new \Exception("Can't move forward north.");
+               throw new RobotCannotMoveException("Can't move forward north.");
             }
             $this->y--;
             break;
         case 'E':
             if($this->x == $this->mapsize[0]){
-               throw new \Exception("Can't move forward east");
+               throw new RobotCannotMoveException("Can't move forward east");
             }
             $this->x++;
             break;
         case 'S':
             if($this->y == $this->mapsize[1]){
-               throw new \Exception("Can't move forward south");
+               throw new RobotCannotMoveException("Can't move forward south");
             }
             $this->y++;
             break;
         case 'W':
             if($this->x == 0){
-               throw new \Exception("Can't move forward west.");
+               throw new RobotCannotMoveException("Can't move forward west.");
             }
             $this->x--;
             break;
