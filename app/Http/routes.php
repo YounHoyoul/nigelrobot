@@ -14,3 +14,11 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::post('shop',                     'RobotController@createShop');
+Route::get('shop/{id}',                 'RobotController@showShop');
+Route::delete('shop/{id}',              'RobotController@deleteShop');
+
+Route::post('shop/{id}/robot',          'RobotController@createRobot');
+Route::put('shop/{id}/robot/{rid}',     'RobotController@updateRobot');
+Route::delete('shop/{id}/robot/{rid}',  'RobotController@deleteRobot');
