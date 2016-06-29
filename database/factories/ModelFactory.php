@@ -28,10 +28,16 @@ $factory->define(App\Models\Shop::class, function (Faker\Generator $faker) {
 });
 
 $factory->define(App\Models\Robot::class, function (Faker\Generator $faker) {
+    $seed = str_split("MLR");
+    $result = '';
+    for ($i = 0; $i < 20; $i++){
+        $result .= $seed[mt_rand(0, 2)];
+    }
+
     return [
         'x' => rand(5,100),
         'y' => rand(5,100),
         'heading' => $faker->randomElement(['N','E','S','W']),
-        'commands' => '',
+        'commands' => $result,
     ];
 });

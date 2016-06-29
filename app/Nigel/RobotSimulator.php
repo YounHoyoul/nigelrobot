@@ -3,6 +3,9 @@ namespace App\Nigel;
 
 class RobotSimulator
 {
+    const ERR_COLLISION = "Robot Collision Detected";
+    const ERR_CANNOTMOVE = "Robot Cannot Move";
+    
     private $input;
     private $robots = array();
 
@@ -25,13 +28,17 @@ class RobotSimulator
         $allDone = false;
         while(!$allDone){
             foreach($this->robots as $r1){
-                $r1->nextCommand();
-                foreach($this->robots as $r2){
-                    if($r1 !== $r2){
-                        if($r2->checkCollision($r1->x,$r2->y)){
-                            return ["Robot Collision Detected"];
+                try{
+                    $r1->nextCommand();
+                    foreach($this->robots as $r2){
+                        if($r1 !== $r2){
+                            if($r2->checkCollision($r1->x,$r2->y)){
+                                return [self::ERR_COLLISION];
+                            }
                         }
                     }
+                }catch(\Exception $e){
+                    return [self::ERR_CANNOTMOVE];
                 }
             }
 

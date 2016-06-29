@@ -16,7 +16,8 @@ Route::get('/', function () {
 });
 
 Route::post('shop',                     'RobotController@createShop');
-Route::get('shop/{id}',                 'RobotController@showShop');
+Route::post('shop/{id}/execute',        'RobotController@executeShop');
+Route::get('shop/{id}',                 'RobotController@queryShop');
 Route::delete('shop/{id}',              'RobotController@deleteShop');
 
 Route::post('shop/{id}/robot',          'RobotController@createRobot');
