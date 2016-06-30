@@ -4,5 +4,4 @@
 http://nigel-robots.herokuapp.com/
 
 # Travis Test Status
-https://travis-ci.org/YounHoyoul/nigelrobot/builds/141318254
-
+https://travis-ci.org/YounHoyoul/nigelrobot/builds/141445746
