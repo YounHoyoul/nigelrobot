@@ -21,7 +21,6 @@ class CreateRobotsTable extends Migration
             $table->integer('y')->nullable();
             $table->string('heading',1)->nullable();
             $table->text('commands')->nullable();
-            //$table->timestamps();
 
             $table->foreign('shop_id')->references('id')->on('shops')->onDelete('cascade');
         });

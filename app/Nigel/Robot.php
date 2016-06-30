@@ -11,19 +11,31 @@ class Robot{
     public $y;
     public $direction;
     public $mapsize;
+
     private $commands;
     private $currentIndex;
+    private $prev_x;
+    private $prev_y;
+    private $prev_direction;
 
     public function __construct($x=0,$y=0,$direction='N',$commands="",$mapsize=[5,5]){
         $this->x = $x;
         $this->y = $y;
         $this->direction = $direction;
+        $this->prev_x = $x;
+        $this->prev_y = $y;
+        $this->prev_direction = $direction;
+        
         $this->commands = str_split($commands);
         $this->mapsize = $mapsize;
         $this->currentIndex = 0;
     }
     
     public function nextCommand(){
+        $this->prev_x = $this->x;
+        $this->prev_y = $this->y;
+        $this->prev_direction = $this->direction;
+
         if($this->currentIndex < count($this->commands)){
             $this->command($this->commands[$this->currentIndex]);
             $this->currentIndex++;
@@ -34,8 +46,21 @@ class Robot{
         return $this->currentIndex >= count($this->commands);
     }
 
-    public function checkCollision($x,$y){
-        return $this->x == $x && $this->y == $y;
+    public function checkCollision($robot){
+        if($robot == null) return false;
+        
+        //if two robots have the same destination, collision.
+        if( $this->x == $robot->x && $this->y == $robot->y){
+            return true;
+        }
+
+        //if two robots are moving the opposite way on the same path, collision.
+        if( $this->x == $robot->prev_x && $this->y == $robot->prev_y &&
+            $this->prev_x == $robot->x && $this->prev_y == $robot->y){
+            return true;
+        }
+
+        return false;
     }
 
     private function command($cmd){

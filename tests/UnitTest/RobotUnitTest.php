@@ -145,14 +145,16 @@ class RobotUnitTest extends TestCase
     } 
 
     public function testCollision(){
-        $robot = new Robot(1,1,'N');
-        $iscollision = $robot->checkCollision(1,1);
+        $robot1 = new Robot(1,1,'N');
+        $robot2 = new Robot(1,1,'S');
+        $iscollision = $robot1->checkCollision($robot2);
         $this->assertTrue($iscollision);
     }
 
     public function testNonCollision(){
-        $robot = new Robot(1,1,'N');
-        $iscollision = $robot->checkCollision(1,2);
+        $robot1 = new Robot(1,1,'N');
+        $robot2 = new Robot(1,2,'N');
+        $iscollision = $robot1->checkCollision($robot2);
         $this->assertFalse($iscollision);
     }
 

@@ -16,7 +16,6 @@ class CreateShopsTable extends Migration
             $table->increments('id');
             $table->integer('width')->nullable();
             $table->integer('height')->nullable();
-            //$table->timestamps();
         });
     }
 

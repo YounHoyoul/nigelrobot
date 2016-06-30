@@ -22,11 +22,13 @@ class RobotSimulator
             foreach($this->robots as $robot){
                 try{
                     $robot->nextCommand();
-                    if($this->hasRobotCollision($robot)){
-                        return [self::ERR_COLLISION];
-                    }
                 }catch(RobotCannotMoveException $e){
                     return [self::ERR_CANNOTMOVE];
+                }
+            }
+            foreach($this->robots as $robot){
+                if($this->hasRobotCollision($robot)){
+                    return [self::ERR_COLLISION];
                 }
             }
         }
@@ -50,7 +52,7 @@ class RobotSimulator
     private function hasRobotCollision($robot){
         foreach($this->robots as $r2){
             if($robot !== $r2){
-                if($r2->checkCollision($robot->x,$robot->y)){
+                if($r2->checkCollision($robot)){
                     return true;
                 }
             }
