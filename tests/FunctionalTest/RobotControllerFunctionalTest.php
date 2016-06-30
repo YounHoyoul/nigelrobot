@@ -11,8 +11,8 @@ class RobotControllerFunctionalTest extends TestCase
         $this->assertResponseOk();
 
         $actual = json_decode($response->getContent(),true);
-        $this->assertArrayHasKey("width",$actual);
-        $this->assertArrayHasKey("height",$actual);
+        $this->assertEquals($shop['width'],$actual['width']);
+        $this->assertEquals($shop['height'],$actual['height']);
     }
 
     public function testShopGet(){
@@ -21,8 +21,8 @@ class RobotControllerFunctionalTest extends TestCase
         $this->assertResponseOk();
 
         $actual = json_decode($response->getContent(),true);
-        $this->assertArrayHasKey("width",$actual);
-        $this->assertArrayHasKey("height",$actual);
+        $this->assertEquals($shop['width'],$actual['width']);
+        $this->assertEquals($shop['height'],$actual['height']);
     }
 
     public function testShopDelete(){
@@ -41,17 +41,25 @@ class RobotControllerFunctionalTest extends TestCase
         $this->assertResponseOk();
 
         $actual = json_decode($response->getContent(),true);
-        $this->assertArrayHasKey("heading",$actual);
+        $this->assertEquals($robot['x'],$actual['x']);
+        $this->assertEquals($robot['y'],$actual['y']);
+        $this->assertEquals($robot['heading'],$actual['heading']);
+        $this->assertEquals($robot['commands'],$actual['commands']);
     }
 
     public function testRobotPut(){
         $shop = factory(Shop::class)->create();
         $robot = factory(Robot::class)->create(['shop_id'=>$shop->id]);
+        $robot['x'] = 100;
+        $robot['y'] = 200; 
         $response = $this->call('PUT','/shop/'.$shop->id.'/robot/'.$robot->id,$robot->toArray()); 
         $this->assertResponseOk();
 
         $actual = json_decode($response->getContent(),true);
-        $this->assertArrayHasKey("heading",$actual);
+        $this->assertEquals($robot['x'],$actual['x']);
+        $this->assertEquals($robot['y'],$actual['y']);
+        $this->assertEquals($robot['heading'],$actual['heading']);
+        $this->assertEquals($robot['commands'],$actual['commands']);
     }
 
     public function testRobotDelete(){
