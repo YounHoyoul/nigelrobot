@@ -11,9 +11,9 @@ class RobotFunctionalTest extends TestCase
             $robot->nextCommand();
         }
 
-        $this->assertEquals(1,$robot->x);
-        $this->assertEquals(1,$robot->y);
-        $this->assertEquals('N',$robot->direction);
+        $this->assertEquals(1,$robot->getX());
+        $this->assertEquals(1,$robot->getY());
+        $this->assertEquals('N',$robot->getDirection());
     }
 
     public function testSecondMove(){
@@ -23,8 +23,8 @@ class RobotFunctionalTest extends TestCase
             $robot->nextCommand();
         }
 
-        $this->assertEquals(3,$robot->x);
-        $this->assertEquals(1,$robot->y);
-        $this->assertEquals('W',$robot->direction);
+        $this->assertEquals(3,$robot->getX());
+        $this->assertEquals(1,$robot->getY());
+        $this->assertEquals('W',$robot->getDirection());
     }
 }

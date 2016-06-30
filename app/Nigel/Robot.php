@@ -7,13 +7,14 @@ class Robot{
 
     const DIRECTIONS = ['N','E','S','W'];
 
-    public $x;
-    public $y;
-    public $direction;
-    public $mapsize;
+    private $x;
+    private $y;
+    private $direction;
 
+    private $mapsize;
     private $commands;
     private $currentIndex;
+    
     private $prev_x;
     private $prev_y;
     private $prev_direction;
@@ -30,7 +31,19 @@ class Robot{
         $this->mapsize = $mapsize;
         $this->currentIndex = 0;
     }
+
+    public function getX(){
+        return $this->x;
+    }
     
+    public function getY(){
+        return $this->y;
+    }
+
+    public function getDirection(){
+        return $this->direction;
+    }
+
     public function nextCommand(){
         $this->prev_x = $this->x;
         $this->prev_y = $this->y;

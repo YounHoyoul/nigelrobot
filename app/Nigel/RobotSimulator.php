@@ -73,7 +73,7 @@ class RobotSimulator
     private function makeResult(){
         $result = array();
         foreach($this->robots as $r){
-            $result[] = $r->x.' '.$r->y.' '.$r->direction; 
+            $result[] = $r->getX().' '.$r->getY().' '.$r->getDirection(); 
         }
 
         return $result;
